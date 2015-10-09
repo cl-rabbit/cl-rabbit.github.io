@@ -29,33 +29,21 @@
 				margin: 0;
 			}
 		}
-		@media only screen and (max-width: 480px){
-			.phone-visible{
-				display: inherit;
-			}
-			.phone-hidden{
-				display: none;
-			}			
-			.desktop-visible{
-				display: none;
-			}
-			.desktop-hidden{
-				display: inherit;
-			}
+		.phone-visible{
+			display: none;
 		}
-		@media only screen and (min-width: 481px){
+		.phone-hidden{
+			display: inherit;
+		}	
+		@media only screen and (-webkit-min-device-pixel-ratio: 1.3),
+		only screen and (-o-min-device-pixel-ratio: 13/10),
+		only screen and (min-resolution: 120dpi){
 			.phone-visible{
-				display: none;
+				display: inherit;
 			}
 			.phone-hidden{
-				display: inherit;
-			}	
-			.desktop-visible{
-				display: inherit;
-			}
-			.desktop-hidden{
 				display: none;
-			}
+			}	
 		}
 		.artwork {
 			margin-top: 50px;
@@ -96,7 +84,7 @@
 	</head>
 	<body>
 		<div class="container">
-			<img src="https://raw.githubusercontent.com/cl-rabbit/artwork/6a349057c874d6e6f553f01d9dd1f221c5a1018b/images/r4-2-small.png" class="desktop-visible">
+			<img src="https://raw.githubusercontent.com/cl-rabbit/artwork/master/images/r4-2-small.png" class="phone-hidden">
 			<img src="https://raw.githubusercontent.com/cl-rabbit/artwork/master/images/imgo2.jpg" class="phone-visible"><br>
 			Under Construction
 			<div class="artwork">
