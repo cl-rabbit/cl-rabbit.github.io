@@ -14,10 +14,48 @@
 			width: 100%;
 			left: 0;
 			top: 50%;
-			margin: -430px 0 0 0;
+			margin: -490px 0 0 0;
 			text-align: center;
 			font-size: 50px;
 			font-weight: 500;
+		}
+		.container img{
+			max-width: 100%;
+			margin: auto;
+		}
+		@media only screen and (max-height: 970px){
+			.container{
+				top: 0;
+				margin: 0;
+			}
+		}
+		@media only screen and (max-width: 480px){
+			.phone-visible{
+				display: inherit;
+			}
+			.phone-hidden{
+				display: none;
+			}			
+			.desktop-visible{
+				display: none;
+			}
+			.desktop-hidden{
+				display: inherit;
+			}
+		}
+		@media only screen and (min-width: 481px){
+			.phone-visible{
+				display: none;
+			}
+			.phone-hidden{
+				display: inherit;
+			}	
+			.desktop-visible{
+				display: inherit;
+			}
+			.desktop-hidden{
+				display: none;
+			}
 		}
 		.artwork {
 			margin-top: 50px;
@@ -25,7 +63,7 @@
 		}
 		.artwork img{
 			position: relative;
-			height: 100%;
+			max-height: 100%;
 			text-align: center;
 		}
 		.copyright{
@@ -46,24 +84,23 @@
 		}
 		#fly-1{
 			position: absolute;
-			left: 100px;
-			top: 100px;
+			left: 10%;
+			top: 10%;
 		}
 		#fly-2{
 			position: absolute;
-			right: 100px;
-			top: 300px;
+			right: 10%;
+			top: 30%;
 		}
 		</style>
 	</head>
 	<body>
 		<div class="container">
-			<img src="https://raw.githubusercontent.com/cl-rabbit/artwork/6a349057c874d6e6f553f01d9dd1f221c5a1018b/images/r4-2-small.png"><br>
+			<img src="https://raw.githubusercontent.com/cl-rabbit/artwork/6a349057c874d6e6f553f01d9dd1f221c5a1018b/images/r4-2-small.png" class="desktop-visible">
+			<img src="https://raw.githubusercontent.com/cl-rabbit/artwork/master/images/imgo2.jpg" class="phone-visible"><br>
 			Under Construction
 			<div class="artwork">
-				<img src="img/r1.png">
-				<img src="img/r2.png">
-				<img src="img/r3.png">
+				<img src="https://raw.githubusercontent.com/cl-rabbit/artwork/master/images/r1-r3-combined.png">
 			</div>
 
 			<div class="copyright">
