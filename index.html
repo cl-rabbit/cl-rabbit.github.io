@@ -14,17 +14,48 @@
 			width: 100%;
 			left: 0;
 			top: 50%;
-			margin: -250px 0 0 0;
+			margin: -400px 0 0 0;
 			text-align: center;
 			font-size: 50px;
 			font-weight: 500;
+		}
+		.artwork {
+			margin-top: 50px;
+			height: 250px;
+		}
+		.artwork img{
+			position: relative;
+			height: 100%;
+			text-align: center;
+		}
+		.flies img{
+			width: 30px;
+		}
+		#fly-1{
+			position: absolute;
+			left: 100px;
+			top: 100px;
+		}
+		#fly-2{
+			position: absolute;
+			right: 100px;
+			top: 300px;
 		}
 		</style>
 	</head>
 	<body>
 		<div class="container">
-			<img src="imgo2.jpg"><br>
+			<img src="img/imgo2.jpg"><br>
 			Under Construction
+			<div class="artwork">
+				<img src="img/r1.png">
+				<img src="img/r2.png">
+				<img src="img/r3.png">
+			</div>
+		</div>
+		<div class="flies">
+			<img src="img/f1.png" id="fly-1">
+			<img src="img/f2.png" id="fly-2">
 		</div>
 	</body>
 </html>
