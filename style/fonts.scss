@@ -1,0 +1,32 @@
+@mixin font($font-family, $url, $font-weight, $font-style, $base64: false){
+	@font-face {
+		font-family: '#{$font-family}';
+		src: url('../fonts/#{$url}.eot?') format('#embedded-opentype');
+	}
+
+@if $base64 {
+	@font-face {
+		font-family: '#{$font-family}';
+		src:  url('../fonts/#{$url}.svg#webfontOkKwgGFT') format('svg'),
+		url(data:font/woff;charset=utf-8;base64,#{$base64}) format('woff'), 
+		url('../fonts/#{$url}.ttf') format('truetype');
+		font-weight: $font-weight;
+		font-style: $font-style;
+	}
+}
+@else {
+	@font-face {
+		font-family: '#{$font-family}';
+		src:  url('../fonts/#{$url}.svg#webfontOkKwgGFT') format('svg'),
+		url('../fonts/#{$url}.woff') format('woff'), 
+		url('../fonts/#{$url}.ttf') format('truetype');
+		font-weight: $font-weight;
+		font-style: $font-style;
+	}
+}
+
+}
+
+// ==========================================================================================
+
+//@include font('Open Sans Condensed', 'bitter-regular-webfont', 700, italic, '');
