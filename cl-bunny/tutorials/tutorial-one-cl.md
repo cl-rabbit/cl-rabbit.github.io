@@ -80,11 +80,9 @@ on behalf of the consumer.
 > languages](/devtools.html). We'll
 > use the cl-bunny client in this tutorial.
 >
-> First, install cl-bunny using [official webpage](http://cl-rabbit.io/cl-bunny):
+> First, install cl-bunny using [official webpage](http://cl-rabbit.io/cl-bunny)
 >
->     :::bash
->     $ gem install bunny --version ">= 1.6.0"
->
+
 
 Now we have cl-bunny installed, we can write some
 code.
