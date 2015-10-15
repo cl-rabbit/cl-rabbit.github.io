@@ -20,7 +20,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-{% include includes/header.html %}
+{% include header.html %}
 
 # RabbitMQ tutorial - "Hello World!"
 
@@ -238,4 +238,4 @@ Hello World!
 
 Time to move on to [part 2](tutorial-two-cl.md) and build a simple _work queue_.
 
-{% include includes/footer.html %}
+{% include footer.html %}
