@@ -1,3 +1,8 @@
+---
+title: This is my title
+layout: post
+---
+
 <!--
 Copyright (C) 2007-2015 Pivotal Software, Inc. 
 
