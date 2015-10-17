@@ -47,8 +47,8 @@ RabbitMQ, and messaging in general, uses some jargon.
 Note that the producer, consumer, and  broker do not have to reside on
 the same machine; indeed in most applications they don't.
 
-## "Hello World"
-### (using the cl-bunny Common Lisp Client)
+## "Hello World" 
+### (using the cl-bunny Common Lisp Client) 
 
 In this part of the tutorial we'll write two small programs in Lisp; a
 producer that sends a single message, and a consumer that receives

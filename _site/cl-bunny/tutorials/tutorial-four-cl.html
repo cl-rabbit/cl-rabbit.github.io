@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+  <head> 
+  	<title>Tutorial 4</title>
+    <meta charset='utf-8'>
+    
+    <meta name="description" content="">
+  	<meta name="keywords" content="">
+
+    <link rel="stylesheet" type="text/css" href="style/style.css">
+
+    <script src="js/jquery.js"></script>
+    <script src="js/script.js"></script>
+
+
+<!--[if lt IE 10]>
+<script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+<script src="js/respond.js"></script>
+<link rel="stylesheet" type="text/css" href="style/ie8.css">
+<![endif]-->
+
+  </head>
+  <body>    
+
+        <header>
+      <div class="width">
+        <nav>
+          <!-- <a href="/documentation">Documentation</a>
+          <a href="/tutorials">Tutorials</a>
+          <a href="https://github.com/cl-rabbit/cl-bunny">GitHub</a> -->
+          <a href="/cl-rabbit">cl-rabbit</a>
+          <a href="/cl-bunny">cl-bunny</a>
+          <a href="/cl-amqp">cl-amqp</a>
+          <a href="https://github.com/cl-rabbit/" class="github-link">GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+<section class="content">
+	<div class="width">
+		<article>
+			
+<!--
+Copyright (C) 2007-2015 Pivotal Software, Inc. 
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License, 
+Version 2.0 (the "License”); you may not use this file except in compliance 
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<p># RabbitMQ tutorial - Routing</p>
+
+<h2 id="routing">Routing</h2>
+<p>### (using <a href="http://cl-rabbit.io/cl-bunny">cl-bunny</a>)</p>
+
+<p>In the <a href="tutorial-three-cl.md">previous tutorial</a> we built a
+simple logging system. We were able to broadcast log messages to many
+receivers.</p>
+
+<p>In this tutorial we’re going to add a feature to it - we’re going to
+make it possible to subscribe only to a subset of the messages. For
+example, we will be able to direct only critical error messages to the
+log file (to save disk space), while still being able to print all of
+the log messages on the console.</p>
+
+<h2 id="bindings">Bindings</h2>
+
+<p>In previous examples we were already creating bindings. You may recall
+code like:</p>
+
+<pre><code>:::lisp
+(amqp-queue-bind q :exchange "exchange_name")
+</code></pre>
+
+<p>A binding is a relationship between an exchange and a queue. This can
+be simply read as: the queue is interested in messages from this
+exchange.</p>
+
+<p>Bindings can take an extra <code>:routing-key</code> parameter. To avoid the
+confusion with a <code>publish</code> parameter we’re going to call it a
+<code>binding key</code>. This is how we could create a binding with a key:</p>
+
+<pre><code>:::lisp
+(amqp-queue-bind q :exchange "exchange_name" :routing-key "black")
+</code></pre>
+
+<p>The meaning of a binding key depends on the exchange type. The
+<code>fanout</code> exchanges, which we used previously, simply ignored its
+value.</p>
+
+<h2 id="direct-exchange">Direct exchange</h2>
+
+<p>Our logging system from the previous tutorial broadcasts all messages
+to all consumers. We want to extend that to allow filtering messages
+based on their severity. For example we may want the script which is
+writing log messages to the disk to only receive critical errors, and
+not waste disk space on warning or info log messages.</p>
+
+<p>We were using a <code>fanout</code> exchange, which doesn’t give us much
+flexibility - it’s only capable of mindless broadcasting.</p>
+
+<p>We will use a <code>direct</code> exchange instead. The routing algorithm behind
+a <code>direct</code> exchange is simple - a message goes to the queues whose
+<code>binding key</code> exactly matches the <code>routing key</code> of the message.</p>
+
+<p>To illustrate that, consider the following setup:</p>
+
+<p><img src="http://i.imgur.com/lMGLZRW.png" alt="direct echange diagram" /></p>
+
+<p>In this setup, we can see the <code>direct</code> exchange <code>X</code> with two queues bound
+to it. The first queue is bound with binding key <code>orange</code>, and the second
+has two bindings, one with binding key <code>black</code> and the other one
+with <code>green</code>.</p>
+
+<p>In such a setup a message published to the exchange with a routing key
+<code>orange</code> will be routed to queue <code>Q1</code>. Messages with a routing key of <code>black</code>
+or <code>green</code> will go to <code>Q2</code>. All other messages will be discarded.</p>
+
+<h2 id="multiple-bindings">Multiple bindings</h2>
+<p><img src="http://i.imgur.com/1LP5MlV.png" alt="multiple exchange diagram" /></p>
+
+<p>It is perfectly legal to bind multiple queues with the same binding
+key. In our example we could add a binding between <code>X</code> and <code>Q1</code> with
+binding key <code>black</code>. In that case, the <code>direct</code> exchange will behave
+like <code>fanout</code> and will broadcast the message to all the matching
+queues. A message with routing key <code>black</code> will be delivered to both
+<code>Q1</code> and <code>Q2</code>.</p>
+
+<h2 id="emitting-logs">Emitting logs</h2>
+
+<p>We’ll use this model for our logging system. Instead of <code>fanout</code> we’ll
+send messages to a <code>direct</code> exchange. We will supply the log severity as
+a <code>routing key</code>. That way the receiving script will be able to select
+the severity it wants to receive. Let’s focus on emitting logs
+first.</p>
+
+<p>As always, we need to create an exchange first:</p>
+
+<pre><code>:::lisp
+(amqp-exchange-declare "logs" :type "direct")
+</code></pre>
+
+<p>And we’re ready to send a message:</p>
+
+<pre><code>:::lisp
+(let ((x (amqp-exchange-declare "logs" :type "direct")))
+    (publish x msg :routing-key severity))
+</code></pre>
+
+<p>To simplify things we will assume that ‘severity’ can be one of
+‘info’, ‘warning’, ‘error’.</p>
+
+<h2 id="subscribing">Subscribing</h2>
+
+<p>Receiving messages will work just like in the previous tutorial, with
+one exception - we’re going to create a new binding for each severity
+we’re interested in.</p>
+
+<pre><code>:::lisp
+(let ((q (queue.declare "" :auto-delete t)))
+    (loop for severity in (cdr sb-ext:*posix-argv*) do
+        (amqp-queue-bind q :exchange "logs" :routing-key severity)))
+</code></pre>
+
+<h2 id="putting-it-all-together">Putting it all together</h2>
+
+<p><img src="http://i.imgur.com/WiZ2UuV.png" alt="" /></p>
+
+<p>The code for <code>emit_log_direct.lisp</code> script:</p>
+
+<pre><code>:::lisp
+(with-connection ("amqp://")
+  (with-channel ()
+    (let* ((args (cdr sb-ext:*posix-argv*))
+           (severity (if (car args) (car args) "info"))
+           (msg (format nil "~{~a ~}" (cdr args)))
+           (x (amqp-exchange-declare "direct_logs" :type "direct")))
+      (publish x msg :routing-key severity)
+      (format t " [x] Sent '~a'" msg)
+      (sleep 1))))
+</code></pre>
+
+<p>The code for <code>receive_logs_direct.lisp</code>:</p>
+
+<pre><code>:::lisp
+(let ((args (cdr sb-ext:*posix-argv*)))
+  (if args
+      (with-connection ("amqp://")
+        (with-channel ()
+          (let ((args (cdr sb-ext:*posix-argv*))
+                (q (queue.declare "" :auto-delete t)))
+            (loop for severity in args do
+                     (amqp-queue-bind q :exchange "direct_logs" :routing-key severity))
+            (format t " [*] Waiting for logs. To exit type (exit)~%")
+            (subscribe q (lambda (message)
+                           (let ((body (babel:octets-to-string (message-body message))))
+                             (format t " [x] #~a~%" body)))
+                       :type :sync)
+            (consume))))
+      (error "Usage: #{$0} [info] [warning] [error]")))
+</code></pre>
+
+<p>If you want to save only ‘warning’ and ‘error’ (and not ‘info’) log
+messages to a file, just open a console and type:</p>
+
+<pre><code>:::bash
+$ sbcl --non-interactive --load receive_logs_direct.lisp warning error &gt; logs_from_rabbit.log
+</code></pre>
+
+<p>If you’d like to see all the log messages on your screen, open a new
+terminal and do:</p>
+
+<pre><code>:::bash
+$ sbcl --non-interactive --load receive_logs_direct.lisp info warning error
+ [*] Waiting for logs. To exit press CTRL+C
+</code></pre>
+
+<p>And, for example, to emit an <code>error</code> log message just type:</p>
+
+<pre><code>:::bash
+$ sbcl --non-interactive --load emit_log_direct.lisp error "Run. Run. Or it will explode."
+ [x] Sent 'error':'Run. Run. Or it will explode.'
+</code></pre>
+
+<p>(Full source code for <a href="code/emit_log_direct.lisp">(emit_log_direct.lisp source)</a>
+and <a href="code/receive_logs_direct.lisp">(receive_logs_direct.lisp source)</a>)</p>
+
+<p>Move on to <a href="tutorial-five-cl.md">tutorial 5</a> to find out how to listen
+for messages based on a pattern.</p>
+
+
+		</article>
+	</div>
+</section>
+
+        <footer>
+      <div class="width">
+        <div class="copyright">
+          Copyright
+        </div>
+      </div>
+    </footer>
+
+  </body>
+</html>
