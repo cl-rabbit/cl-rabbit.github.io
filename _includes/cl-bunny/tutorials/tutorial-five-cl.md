@@ -118,7 +118,6 @@ The code is almost the same as in the
 
 The code for `emit_log_topic.lisp`:
 
-    :::lisp
     (with-connection ("amqp://")
       (with-channel ()
         (let* ((args (cdr sb-ext:*posix-argv*))
@@ -134,7 +133,6 @@ The code for `emit_log_topic.lisp`:
 
 The code for `receive_logs_topic.lisp`:
 
-    :::lisp
     (let ((args (cdr sb-ext:*posix-argv*)))
       (if args
           (with-connection ("amqp://")
@@ -154,28 +152,22 @@ The code for `receive_logs_topic.lisp`:
 
 To receive all the logs:
 
-    :::bash
     $ sbcl --load receive_logs_topic.lisp "#"
 
 To receive all logs from the facility "`kern`":
 
-    :::bash
     $ sbcl --load receive_logs_topic.lisp "kern.*"
 
 Or if you want to hear only about "`critical`" logs:
 
-    :::bash
     $ sbcl --load receive_logs_topic.lisp "*.critical"
 
 You can create multiple bindings:
 
-    :::bash
     $ sbcl --load receive_logs_topic.lisp "kern.*" "*.critical"
-
 
 And to emit a log with a routing key "`kern.critical`" type:
 
-    :::bash
     $ sbcl --load emit_log_topic.lisp "kern.critical" "A critical kernel error"
 
 

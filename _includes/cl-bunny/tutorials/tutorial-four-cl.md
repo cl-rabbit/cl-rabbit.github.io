@@ -36,7 +36,6 @@ Bindings
 In previous examples we were already creating bindings. You may recall
 code like:
 
-    :::lisp
     (amqp-queue-bind q :exchange "exchange_name")
 
 A binding is a relationship between an exchange and a queue. This can
@@ -47,7 +46,6 @@ Bindings can take an extra `:routing-key` parameter. To avoid the
 confusion with a `publish` parameter we're going to call it a
 `binding key`. This is how we could create a binding with a key:
 
-    :::lisp
     (amqp-queue-bind q :exchange "exchange_name" :routing-key "black")
 
 The meaning of a binding key depends on the exchange type. The
@@ -107,12 +105,10 @@ first.
 
 As always, we need to create an exchange first:
 
-    :::lisp
     (amqp-exchange-declare "logs" :type "direct")
 
 And we're ready to send a message:
 
-    :::lisp
     (let ((x (amqp-exchange-declare "logs" :type "direct")))
 	    (publish x msg :routing-key severity))
 
@@ -127,7 +123,6 @@ Receiving messages will work just like in the previous tutorial, with
 one exception - we're going to create a new binding for each severity
 we're interested in.
 
-    :::lisp
     (let ((q (queue.declare "" :auto-delete t)))
         (loop for severity in (cdr sb-ext:*posix-argv*) do
             (amqp-queue-bind q :exchange "logs" :routing-key severity)))
@@ -136,13 +131,11 @@ Putting it all together
 -----------------------
 
 
-
 ![](http://i.imgur.com/WiZ2UuV.png)
 
 
 The code for `emit_log_direct.lisp` script:
 
-	:::lisp
 	(with-connection ("amqp://")
 	  (with-channel ()
 	    (let* ((args (cdr sb-ext:*posix-argv*))
@@ -157,7 +150,6 @@ The code for `emit_log_direct.lisp` script:
 
 The code for `receive_logs_direct.lisp`:
 
-    :::lisp
 	(let ((args (cdr sb-ext:*posix-argv*)))
 	  (if args
 	      (with-connection ("amqp://")
@@ -178,19 +170,16 @@ The code for `receive_logs_direct.lisp`:
 If you want to save only 'warning' and 'error' (and not 'info') log
 messages to a file, just open a console and type:
 
-    :::bash
     $ sbcl --non-interactive --load receive_logs_direct.lisp warning error > logs_from_rabbit.log
 
 If you'd like to see all the log messages on your screen, open a new
 terminal and do:
 
-    :::bash
     $ sbcl --non-interactive --load receive_logs_direct.lisp info warning error
      [*] Waiting for logs. To exit press CTRL+C
 
 And, for example, to emit an `error` log message just type:
 
-    :::bash
     $ sbcl --non-interactive --load emit_log_direct.lisp error "Run. Run. Or it will explode."
      [x] Sent 'error':'Run. Run. Or it will explode.'
 

@@ -54,7 +54,6 @@ to allow arbitrary messages to be sent from the command line. This
 program will schedule tasks to our work queue, so let's name it
 `new_task.lisp`:
 
-    :::lisp
     (with-connection ("amqp://")
       (with-channel ()
         (let ((x (default-exchange))
@@ -68,7 +67,6 @@ Our old _receive.lisp_ script also requires some changes: it needs to
 fake a second of work for every dot in the message body. It will pop
 messages from the queue and perform the task, so let's call it `worker.lisp`:
 
-    :::lisp
     (with-connection ("amqp://")
       (with-channel ()
         (let ((q (queue.declare "task_queue" :auto-delete t)))
@@ -88,7 +86,6 @@ Note that our fake task simulates execution time.
 
 Run them as in tutorial one:
 
-    :::bash
     shell1$ sbcl --load worker.lisp
     shell2$ sbcl --load new_task.lisp
 
@@ -105,18 +102,15 @@ will both get messages from the queue, but how exactly? Let's see.
 You need three consoles open. Two will run the `worker.rb`
 script. These consoles will be our two consumers - C1 and C2.
 
-    :::bash
     shell1$ sbcl --load worker.lisp
      [*] Waiting for messages. To exit type (exit)
 
-    :::bash
     shell2$ sbcl --load worker.lisp
      [*] Waiting for messages. To exit type (exit)
 
 In the third one we'll publish new tasks. Once you've started
 the consumers you can publish a few messages:
 
-    :::bash
     shell3$ sbcl --non-interactive --load new_task.lisp First message.
     shell3$ sbcl --non-interactive --load new_task.lisp Second message..
     shell3$ sbcl --non-interactive --load new_task.lisp Third message...
@@ -125,14 +119,12 @@ the consumers you can publish a few messages:
 
 Let's see what is delivered to our workers:
 
-    :::bash
     shell1$ sbcl --load worker.lisp
      [*] Waiting for messages. To exit press CTRL+C
      [x] Received 'First message.'
      [x] Received 'Third message...'
      [x] Received 'Fifth message.....'
 
-    :::bash
     shell2$ sbcl --load worker.lisp
      [*] Waiting for messages. To exit press CTRL+C
      [x] Received 'Second message..'
@@ -176,7 +168,6 @@ Message acknowledgments are turned off by default.
 It's time to turn them on using the `:manual_ack` option and send a proper acknowledgment
 from the worker, once we're done with a task.
 
-    :::lisp
     (subscribe q (lambda (message) 
       (let ((body (babel:octets-to-string (message-body message))))
         (format t " [x] Received ~a" body)
@@ -202,7 +193,6 @@ after the worker dies all unacknowledged messages will be redelivered.
 > In order to debug this kind of mistake you can use `rabbitmqctl`
 > to print the `messages_unacknowledged` field:
 >
->     :::bash
 >     $ sudo rabbitmqctl list_queues name messages_ready messages_unacknowledged
 >     Listing queues ...
 >     hello    0       0
@@ -223,7 +213,6 @@ durable.
 First, we need to make sure that RabbitMQ will never lose our
 queue. In order to do so, we need to declare it as _durable_:
 
-    :::lisp
     (queue.declare "hello" :durable t)
 
 Although this command is correct by itself, it won't work in our present
@@ -233,7 +222,6 @@ with different parameters and will return an error to any program
 that tries to do that. But there is a quick workaround - let's declare
 a queue with different name, for example `task_queue`:
 
-    :::lisp
     (queue.declare "task_queue" :durable t)
 
 This `:durable` option change needs to be applied to both the producer
@@ -243,7 +231,6 @@ At this point we're sure that the `task_queue` queue won't be lost
 even if RabbitMQ restarts. Now we need to mark our messages as persistent
 - by using the `:persistent` option `publish` takes via `:properties` as alist item.
 
-    :::lisp
     (publish x msg :properties `((:persistent . ,t)))
 
 > #### Note on message persistence
@@ -281,7 +268,6 @@ one message to a worker at a time. Or, in other words, don't dispatch
 a new message to a worker until it has processed and acknowledged the
 previous one. Instead, it will dispatch it to the next worker that is not still busy.
 
-    :::lisp
     (with-cahnnel ()
       (let ((n 1))
         (setf (channel-prefetch cl-bunny::*channel*) n)))
@@ -296,7 +282,6 @@ Putting it all together
 
 Final code of our `new_task.lisp` class:
 
-    :::lisp
     (with-connection ("amqp://")
       (with-channel ()
         (let ((x (default-exchange))
@@ -311,7 +296,6 @@ Final code of our `new_task.lisp` class:
 
 And our `worker.lisp`:
 
-    :::lisp
     (with-connection ("amqp://")
       (with-channel ()
         (let ((n 1)

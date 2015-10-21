@@ -87,13 +87,10 @@ In
 [`send.lisp`](code/send.lisp),
 we need to require the library first:
 
-    :::lisp
-
     (ql:quickload 'cl-bunny)
 
 then connect to RabbitMQ server
 
-    :::lisp
     (with-connection ("amqp://")
       ...
     )
@@ -106,7 +103,6 @@ If we wanted to connect to a broker on a different
 machine we'd simply specify its name or IP address using the `:hostname`
 option:
 
-    :::lisp
     (with-connection ("amqp://rabbit.local")
       ...
     )
@@ -114,7 +110,6 @@ option:
 Next we create a channel, which is where most of the API for getting
 things done resides:
 
-    :::lisp
     (with-channel ()
       ...
     )
@@ -122,12 +117,11 @@ things done resides:
 To send, we must declare a queue for us to send to; then we can publish a message
 to the queue:
 
-    :::lisp
-	(with-connection ("amqp://")
-	  (with-channel ()
-	    (let ((x (default-exchange)))
-	      (publish x "Hello world!" :routing-key "hello")          
-	      (format t " [x] Sent 'Hello World!'~%"))))
+  	(with-connection ("amqp://")
+  	  (with-channel ()
+  	    (let ((x (default-exchange)))
+  	      (publish x "Hello world!" :routing-key "hello")          
+  	      (format t " [x] Sent 'Hello World!'~%"))))
 
 Declaring a queue is idempotent - it will only be created if it doesn't
 exist already. The message content is a byte array, so you can encode
@@ -160,15 +154,12 @@ keep it running to listen for messages and print them out.
 
 The code (in [`receive.lisp`](code/receive.lisp)) has the same require as `send.lisp`:
 
-    :::lisp
     (ql:quickload 'cl-bunny)
-
 
 Setting up is the same as the sender; we open a connection and a
 channel, and declare the queue from which we're going to consume.
 Note this matches up with the queue that `send` publishes to.
 
-    :::lisp
     (with-connection ("amqp://")
       (with-channel ()
         (let ((x (default-exchange)))          
@@ -176,7 +167,6 @@ Note this matches up with the queue that `send` publishes to.
           (queue.declare "hello" :auto-delete t)
           ...
     ))
-
 
 Note that we declare the queue here, as well. Because we might start
 the receiver before the sender, we want to make sure the queue exists
@@ -187,16 +177,15 @@ queue. Since it will push us messages asynchronously, we provide a
 callback that will be executed when RabbitMQ pushes messages to
 our consumer. This is what `subscribe` does.
 
-    :::lisp
-	(with-connection ("amqp://")
-	  (with-channel ()
-	    (let ((q (queue.declare "hello" :auto-delete t)))
-	      (format t " [*] Waiting for messages in queue 'hello'. To exit type (exit)~%")
-	      (subscribe q (lambda (message)
-	                     (let ((body (babel:octets-to-string (message-body message))))
-	                       (format t " [x] Received ~a~%" body)))
-	                 :type :sync)
-	      (consume :one-shot t))))
+  	(with-connection ("amqp://")
+  	  (with-channel ()
+  	    (let ((q (queue.declare "hello" :auto-delete t)))
+  	      (format t " [*] Waiting for messages in queue 'hello'. To exit type (exit)~%")
+  	      (subscribe q (lambda (message)
+  	                     (let ((body (babel:octets-to-string (message-body message))))
+  	                       (format t " [x] Received ~a~%" body)))
+  	                 :type :sync)
+  	      (consume :one-shot t))))
 
 `subscribe` is used with the `:type :sync` option that makes it
 block the calling thread (we don't want the script to finish running immediately!).
@@ -207,12 +196,10 @@ block the calling thread (we don't want the script to finish running immediately
 
 Now we can run both scripts. In a terminal, run the sender:
 
-    :::bash
     $ sbcl --non-interactive --load send.lisp
 
 then, run the receiver:
 
-    :::bash
     $ sbcl --non-interactive --load receive.lisp
 
 The receiver will print the message it gets from the sender via

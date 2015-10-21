@@ -38,7 +38,6 @@ To illustrate how an RPC service could be used we're going to
 create a simple client. It's going to be a function named `start-client`
 which sends an RPC request and blocks until the answer is received:
 
-    :::lisp
     (defun start-client (n)
       (with-connection ("amqp://")
 	    (with-channel ()
@@ -77,8 +76,6 @@ receive a response we need to send a 'callback' queue address with the
 request. We can use the default queue.
 Let's try it:
 
-
-    :::lisp
     (let ((q (queue.declare "" :auto-delete t))
     	  (x (default-exchange)))
 	  (publish x
@@ -153,7 +150,6 @@ Putting it all together
 
 The Fibonacci task:
 
-    :::lisp
     (defun fibonacci (n)
 	    (if (< n 3)
 	        1
@@ -167,7 +163,6 @@ and it's probably the slowest recursive implementation possible).
 
 The code for our RPC server [rpc_server.lisp](code/rpc_server.lisp) looks like this:
 
-    :::lisp
 	(with-connection ("amqp://")
 	  (with-channel ()
 	    (let ((x (default-exchange))
@@ -199,7 +194,6 @@ The server code is rather straightforward:
 
 The code for our RPC client [rpc_client.lisp](code/rpc_client.lisp):
 
-    :::lisp
 	(defun start-client (n)
 	  (with-connection ("amqp://")
 	    (with-channel ()
@@ -232,13 +226,11 @@ Now is a good time to take a look at our full example source code (which include
 
 Our RPC service is now ready. We can start the server:
 
-    :::bash
     $ sbcl --non-interactive --load rpc_server.lisp
      [x] Awaiting RPC requests
 
 To request a fibonacci number run the client:
 
-    :::bash
     $ sbcl --non-interactive --load rpc_client.lisp
 	 [x] Requesting fib(0)
 	 [.] Got 1
