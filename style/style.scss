@@ -132,12 +132,12 @@ blockquote{
 }
 code{
 	border: 1px solid #ccc;
-		padding: 2px;
+	padding: 2px;
+	white-space: pre;
 }
 pre{
 	font-family: "Roboto Mono", monospace;
 	border: 1px solid #ccc;
-	padding: 20px;
 	margin-bottom: 20px;
 
 	code{
