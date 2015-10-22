@@ -9,14 +9,15 @@
 
     <link rel="stylesheet" type="text/css" href="/style/style.css">
 
-    <script src="/js/jquery.js"></script>
-    <script src="/js/script.js"></script>
+    <script src="https://yastatic.net/jquery/2.1.4/jquery.min.js"></script>
 
   <link href='https://yastatic.net/highlightjs/8.2/styles/github.min.css' rel='stylesheet'>
     <script src='https://yastatic.net/highlightjs/8.2/highlight.min.js'></script>
     <script src='https://yastatic.net/highlightjs/8.2/languages/lisp.min.js'/>
     <script>
-      hljs.initHighlightingOnLoad();
+      $(function(){
+        hljs.initHighlighting();
+      });
     </script>
 
 <!--[if lt IE 10]>
