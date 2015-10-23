@@ -1,0 +1,15 @@
+    <div class="breadcrumbs">
+      <div class="width">
+        <a href="/index2">Home</a>
+        {% assign links_array = include.links | split: ">" %}
+        {% assign last_link = links_array.last %}
+        {% for link in links_array %}
+          {% assign plink = link | split: "|" %}
+          {% if plink[1] %}
+        <a href="{{ plink[0] }}" class="arrow right-arrow">{{ plink[1] }}</a>
+          {% else %}
+        <span class="arrow right-arrow">{{ plink[0] }}</span>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>

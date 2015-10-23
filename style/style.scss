@@ -45,6 +45,21 @@ section.central{
 	}
 }
 
+.breadcrumbs{
+	padding: 10px 0;
+
+	a, span{		
+		&.arrow{
+			padding-left: 20px;
+			position: relative;
+			@include arrows(5px, 5px, #5e3273, false, false);
+
+			&:after{
+				left: 5px !important;
+			}
+		}
+	}
+}
 
 .homepage-header{
 	@include ffx;

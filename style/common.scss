@@ -456,3 +456,59 @@
     background: if($ABG, $ABG, darken($BG, 10));
   }
 }
+
+
+// ---------------------------------------------------------- ARROWS ------
+
+
+@mixin arrow(){
+    content: '';
+    display: block;
+    width: 0px;
+    height: 0px;
+    border-style: solid;
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    transform: rotate(360deg);
+    position: absolute;
+}
+@mixin arrows ($width, $height, $bg-color, $border-color, $border-width){
+  &.right-arrow:after {
+    @include arrow;
+    border-width: $width 0 $width $height;
+    border-color: transparent transparent transparent $bg-color;
+    left: 100%;
+    top: 50%;
+    margin-top: -$width;
+  }
+  @if($border-color){
+    &.right-arrow:before {
+      @include arrow;
+      border-width: $width 0 $width $height;
+      border-color: transparent transparent transparent $border-color;
+      left: 100%;
+      top: 50%;
+      margin-top: -$width;
+      margin-left: $border-width;
+    }
+  }
+  &.left-arrow:after {
+    @include arrow;
+    border-width: $width $height $width 0;
+    border-color: transparent $bg-color transparent transparent;
+    right: 100%;
+    top: 50%;
+    margin-top: -$height;
+  }
+  @if($border-color){
+    &.left-arrow:before {
+      @include arrow;
+      border-width: $width $height $width 0;
+      border-color: transparent $border-color transparent transparent;
+      right: 100%;
+      top: 50%;
+      margin-top: -$width;
+      margin-right: $border-width;
+    }
+  }
+}

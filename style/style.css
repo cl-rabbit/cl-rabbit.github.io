@@ -411,6 +411,44 @@ section.central {
   section.central .btn {
     margin-right: 5px; }
 
+.breadcrumbs {
+  padding: 10px 0; }
+  .breadcrumbs a.arrow, .breadcrumbs span.arrow {
+    padding-left: 20px;
+    position: relative; }
+    .breadcrumbs a.arrow.right-arrow:after, .breadcrumbs span.arrow.right-arrow:after {
+      content: '';
+      display: block;
+      width: 0px;
+      height: 0px;
+      border-style: solid;
+      -webkit-transform: rotate(360deg);
+      -moz-transform: rotate(360deg);
+      transform: rotate(360deg);
+      position: absolute;
+      border-width: 5px 0 5px 5px;
+      border-color: transparent transparent transparent #5e3273;
+      left: 100%;
+      top: 50%;
+      margin-top: -5px; }
+    .breadcrumbs a.arrow.left-arrow:after, .breadcrumbs span.arrow.left-arrow:after {
+      content: '';
+      display: block;
+      width: 0px;
+      height: 0px;
+      border-style: solid;
+      -webkit-transform: rotate(360deg);
+      -moz-transform: rotate(360deg);
+      transform: rotate(360deg);
+      position: absolute;
+      border-width: 5px 5px 5px 0;
+      border-color: transparent #5e3273 transparent transparent;
+      right: 100%;
+      top: 50%;
+      margin-top: -5px; }
+    .breadcrumbs a.arrow:after, .breadcrumbs span.arrow:after {
+      left: 5px !important; }
+
 .homepage-header {
   background: #5e3273; }
   .homepage-header:after {
