@@ -491,6 +491,14 @@ section.central {
       margin-top: 50px;
       font-size: 18px;
       line-height: 30px; }
+  .content.tutorials {
+    padding: 50px 0; }
+    .content.tutorials:after {
+      content: '';
+      display: block;
+      clear: both;
+      height: 0;
+      line-height: 0; }
 
 .home-section {
   display: block;
@@ -511,6 +519,37 @@ section.central {
     color: black; }
   .home-section.active {
     background: #805959; }
+
+.tutorials-list a {
+  display: block;
+  float: left;
+  width: 32%;
+  height: 200px;
+  line-height: 130px;
+  margin: 1% 0 0 1%;
+  padding: 0 20px;
+  position: relative;
+  text-align: center;
+  border: 5px solid #eee;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  box-sizing: border-box; }
+  .tutorials-list a img {
+    max-width: 100%;
+    vertical-align: middle; }
+  .tutorials-list a span {
+    position: absolute;
+    bottom: 12px;
+    left: 0;
+    width: 100%;
+    line-height: 30px;
+    font-size: 24px;
+    color: black;
+    font-weight: bold; }
+  .tutorials-list a:hover {
+    border: 5px solid #B1645D; }
 
 footer {
   text-align: center; }

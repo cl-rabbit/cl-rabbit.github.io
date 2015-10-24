@@ -112,6 +112,10 @@ section.central{
 			line-height: 30px;
 		}
 	}
+	&.tutorials{
+		padding: 50px 0;
+		@include ffx;
+	}
 }
 
 .home-section{
@@ -136,6 +140,42 @@ section.central{
 	&.active{
 		// @include box-shadow-inside(0px, -5px, 25px, rgba(0,0,0, 0.2));
 		background: $color_dark;
+	}
+}
+
+.tutorials-list{
+	a{
+		display: block;
+		float: left;
+		width: 32%;
+		height: 200px;
+	    line-height: 130px;
+		margin: 1% 0 0 1%;
+		padding: 0 20px;
+		position: relative;
+		text-align: center;
+			border: 5px solid #eee;
+		@include box-sizing;
+
+		img{
+			max-width: 100%;
+			vertical-align: middle;
+		}
+
+		span{
+			position: absolute;
+			bottom: 12px;
+			left: 0;
+			width: 100%;
+			line-height: 30px;
+			font-size: 24px;
+			color: black;
+			font-weight: bold;
+		}
+
+		&:hover{
+			border: 5px solid $color_main;
+		}
 	}
 }
 
