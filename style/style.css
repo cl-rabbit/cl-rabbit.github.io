@@ -395,19 +395,33 @@ header {
   position: fixed;
   width: 100%;
   z-index: 100; }
-  header nav a {
-    color: white;
-    text-decoration: none;
-    padding: 0 10px;
-    display: inline-block;
-    font-weight: bold; }
-    header nav a:hover {
-      color: black; }
-    header nav a.github-link {
-      float: right; }
-  header nav *:first-child {
-    padding-left: 0;
-    margin-left: 0; }
+
+.sub-header {
+  background: #805959;
+  height: 40px;
+  line-height: 40px; }
+
+header nav a,
+.sub-header nav a {
+  color: white;
+  text-decoration: none;
+  padding: 0 10px;
+  display: inline-block;
+  font-weight: bold; }
+  header nav a:hover,
+  .sub-header nav a:hover {
+    color: black; }
+  header nav a.github-link,
+  .sub-header nav a.github-link {
+    float: right; }
+header nav span,
+.sub-header nav span {
+  color: black;
+  font-weight: bold; }
+header nav a:first-child,
+.sub-header nav a:first-child {
+  padding-left: 0;
+  margin-left: 0; }
 
 .breadcrumbs {
   padding: 0 20px;

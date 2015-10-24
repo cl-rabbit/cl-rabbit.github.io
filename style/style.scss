@@ -26,7 +26,15 @@ header{
 	position: fixed;
 	width: 100%;
 	z-index: 100;
-	
+}
+.sub-header{
+	background: $color_dark;
+	height: 40px;
+	line-height: 40px;
+}
+
+header,
+.sub-header{
 	nav {
 		a{
 			color: white;	
@@ -43,7 +51,11 @@ header{
 				float: right;
 			}
 		}
-		*:first-child{
+		span{
+			color: black;
+			font-weight: bold;
+		}
+		a:first-child{
 			padding-left: 0;
 			margin-left: 0;
 		}
