@@ -5,35 +5,71 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,400italic,700,700italic|Roboto+Mono:400,400italic,700,700italic|Patua+One);
 
 
+$color_main: #B1645D;
+$color_dark: #805959;
+
+
+body{
+	font-family: 'Roboto', sans-serif;
+	color: #333;
+	font-size: 16px;
+	line-height: 24px;
+}
+
+
+
+
 header{
-	background: #5e3273;
+	background: $color_main;
 	height: 40px;
 	line-height: 40px;
 	position: fixed;
 	width: 100%;
 	z-index: 100;
 	
-	nav a{
-		color: #fff;	
-		text-decoration: none;
-		padding: 0 10px;
-		display: inline-block;
+	nav {
+		a{
+			color: white;	
+			text-decoration: none;
+			padding: 0 10px;
+			display: inline-block;
+			font-weight: bold;
 
-		&:hover{
-			color: white;
-			background: rgba(0,0,0, 0.5);
+			&:hover{
+				color: black;
+			}
+
+			&.github-link{
+				float: right;
+			}
 		}
-
-		&.github-link{
-			float: right;
+		*:first-child{
+			padding-left: 0;
+			margin-left: 0;
 		}
 	}
 }
-body{
-	font-family: 'Roboto', sans-serif;
-	color: #333;
-	font-size: 16px;
-	line-height: 24px;
+
+.breadcrumbs{
+	padding: 0 20px;
+	background: $color_dark;
+	display: inline-block;
+
+	a, span{	
+		padding: 0 ;	
+		&.arrow{
+			padding-left: 20px;
+			position: relative;
+			@include arrows(5px, 5px, black, false, false);
+
+			&:after{
+				left: 7px !important;
+			}
+		}
+	}
+	span{
+		color: black;
+	}
 }
 
 
@@ -45,25 +81,9 @@ section.central{
 	}
 }
 
-.breadcrumbs{
-	padding: 10px 0;
-
-	a, span{		
-		&.arrow{
-			padding-left: 20px;
-			position: relative;
-			@include arrows(5px, 5px, #5e3273, false, false);
-
-			&:after{
-				left: 5px !important;
-			}
-		}
-	}
-}
-
 .homepage-header{
 	@include ffx;
-	background: #5e3273;
+	background: $color_main;
 }
 
 .content{
@@ -97,9 +117,13 @@ section.central{
  
 	@include box-sizing;
 
+	&:hover{
+		color: black;
+	}
+
 	&.active{
 		// @include box-shadow-inside(0px, -5px, 25px, rgba(0,0,0, 0.2));
-		background: #351c3c;
+		background: $color_dark;
 	}
 }
 
@@ -170,11 +194,11 @@ article{
 .btn{
   @include button(
     white,      /* background color */
-    #631289,    /* hover background color */
-    false,    /* active background color */
-    #631289,    /* text color */
+    $color_main,    /* hover background color */
+    $color_dark,    /* active background color */
+    $color_main,    /* text color */
     0 40px,   /* padding */
-    5px solid #631289,     /* border */
+    5px solid $color_main,     /* border */
     0px,      /* border radius */
     50px,     /* height */
     false     /* line height */
@@ -182,7 +206,7 @@ article{
 
   &:hover{
   	border-color: #fff;
-  	color: #fff;
+  	color: black;
   }
   font-size: 24px;
 }

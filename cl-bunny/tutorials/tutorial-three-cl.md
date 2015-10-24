@@ -1,6 +1,7 @@
 ---
 title: Tutorial 3
 layout: tutorial
+site_section: "cl-bunny"
 breadcrumbs: "/cl-bunny|cl-bunny > /cl-bunny/tutorials|Tutorials > Tutorial 3"
 ---
 
