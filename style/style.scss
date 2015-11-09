@@ -14,6 +14,8 @@ body{
 	color: #333;
 	font-size: 16px;
 	line-height: 24px;
+	background: #fcfcfc;
+	padding-bottom: 50px;
 }
 
 
@@ -110,6 +112,14 @@ section.central{
 			margin-top: 50px;
 			font-size: 18px;
 			line-height: 30px;
+		}
+	}
+	&.under-construction{
+		padding: 100px 0;
+
+		h1{
+			font-size: 50px;
+			font-family: 'Roboto Mono', sans-serif;
 		}
 	}
 	&.tutorials{

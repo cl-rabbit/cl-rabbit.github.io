@@ -386,7 +386,9 @@ body {
   font-family: 'Roboto', sans-serif;
   color: #333;
   font-size: 16px;
-  line-height: 24px; }
+  line-height: 24px;
+  background: #fcfcfc;
+  padding-bottom: 50px; }
 
 header {
   background: #B1645D;
@@ -491,6 +493,11 @@ section.central {
       margin-top: 50px;
       font-size: 18px;
       line-height: 30px; }
+  .content.under-construction {
+    padding: 100px 0; }
+    .content.under-construction h1 {
+      font-size: 50px;
+      font-family: 'Roboto Mono', sans-serif; }
   .content.tutorials {
     padding: 50px 0; }
     .content.tutorials:after {
