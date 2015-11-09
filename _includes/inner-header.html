@@ -5,7 +5,8 @@
           <a href="/tutorials">Tutorials</a>
           <a href="https://github.com/cl-rabbit/cl-bunny">GitHub</a> -->
 
-          {% assign site_sections = "cl-amqp|cl-bunny|cl-hrack" | split: "|" %}
+          <!-- {% assign site_sections = "cl-amqp|cl-bunny|cl-hrack" | split: "|" %} -->
+          {% assign site_sections = "cl-bunny" | split: "|" %}
 
           {% for site_section in site_sections %}
             {% if page.site_section == site_section %}
