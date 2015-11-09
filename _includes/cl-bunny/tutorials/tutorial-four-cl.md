@@ -14,12 +14,14 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
+
 # RabbitMQ tutorial - Routing
 
 ## Routing
+
 ### (using [cl-bunny](http://cl-rabbit.io/cl-bunny))
 
-In the [previous tutorial](tutorial-three-cl.md) we built a
+In the [previous tutorial](tutorial-three-cl.html) we built a
 simple logging system. We were able to broadcast log messages to many
 receivers.
 
@@ -187,5 +189,5 @@ And, for example, to emit an `error` log message just type:
 (Full source code for [(emit_log_direct.lisp source)](code/emit_log_direct.lisp)
 and [(receive_logs_direct.lisp source)](code/receive_logs_direct.lisp))
 
-Move on to [tutorial 5](tutorial-five-cl.md) to find out how to listen
+Move on to [tutorial 5](tutorial-five-cl.html) to find out how to listen
 for messages based on a pattern.

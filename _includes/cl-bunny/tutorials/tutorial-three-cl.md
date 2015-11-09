@@ -14,12 +14,14 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
+
 # RabbitMQ tutorial - Publish/Subscribe
 
 ## Publish/Subscribe
+
 ### (using [cl-bunny](http://cl-rabbit.io/cl-bunny))
 
-In the [previous tutorial](tutorial-two-cl.md) we created a work
+In the [previous tutorial](tutorial-two-cl.html) we created a work
 queue. The assumption behind a work queue is that each task is
 delivered to exactly one worker. In this part we'll do something
 completely different -- we'll deliver a message to multiple
@@ -246,4 +248,4 @@ exchange `logs` goes to two queues with server-assigned names. And
 that's exactly what we intended.
 
 To find out how to listen for a subset of messages, let's move on to
-[tutorial 4](tutorial-four-cl.md)
+[tutorial 4](tutorial-four-cl.html)

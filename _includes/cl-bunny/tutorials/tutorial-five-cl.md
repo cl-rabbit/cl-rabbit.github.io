@@ -14,12 +14,14 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
+
 # RabbitMQ tutorial - Topics
 
 ## Topics
+
 ### (using [cl-bunny](http://cl-rabbit.io/cl-bunny))
 
-In the [previous tutorial](tutorial-four-cl.md) we improved our
+In the [previous tutorial](tutorial-four-cl.html) we improved our
 logging system. Instead of using a `fanout` exchange only capable of
 dummy broadcasting, we used a `direct` one, and gained a possibility
 of selectively receiving the logs.
@@ -114,7 +116,7 @@ start off with a working assumption that the routing keys of logs will
 have two words: "`<facility>.<severity>`".
 
 The code is almost the same as in the
-[previous tutorial](tutorial-four-cl.md).
+[previous tutorial](tutorial-four-cl.html).
 
 The code for `emit_log_topic.lisp`:
 
@@ -178,4 +180,4 @@ with more than two routing key parameters.
 (Full source code for [emit_log_topic.lisp](code/emit_log_topic.lisp)
 and [receive_logs_topic.lisp](code/receive_logs_topic.lisp))
 
-Next, find out how to do a round trip message as a remote procedure call in [tutorial 6](tutorial-six-cl.md)
+Next, find out how to do a round trip message as a remote procedure call in [tutorial 6](tutorial-six-cl.html)

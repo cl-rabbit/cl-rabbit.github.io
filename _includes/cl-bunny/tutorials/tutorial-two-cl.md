@@ -14,14 +14,16 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
+
 # RabbitMQ tutorial - Work Queues
 
 ## Work Queues
+
 ### (using [cl-bunny](http://cl-rabbit.io/cl-bunny))
 
 ![](http://i.imgur.com/Tf7ltsH.png)
 
-In the [first tutorial](tutorial-one-cl.md) we
+In the [first tutorial](tutorial-one-cl.html) we
 wrote programs to send and receive messages from a named queue. In this
 one we'll create a _Work Queue_ that will be used to distribute
 time-consuming tasks among multiple workers.
@@ -323,5 +325,5 @@ RabbitMQ is restarted.
 For more information on functions and message properties, you can browse the
 [cl-bunny reference](http://cl-rabbit.io/cl-bunny/reference).
 
-Now we can move on to [tutorial 3](tutorial-three-cl.md) and learn how
+Now we can move on to [tutorial 3](tutorial-three-cl.html) and learn how
 to deliver the same message to many consumers.

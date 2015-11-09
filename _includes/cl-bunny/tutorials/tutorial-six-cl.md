@@ -14,12 +14,14 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
+
 # RabbitMQ tutorial - Remote procedure call (RPC)
 
 ## Remote procedure call (RPC)
+
 ### (using [cl-bunny](http://cl-rabbit.io/cl-bunny))
 
-In the [second tutorial](tutorial-two-cl.md) we learned how to
+In the [second tutorial](tutorial-two-cl.html) we learned how to
 use _Work Queues_ to distribute time-consuming tasks among multiple
 workers.
 

@@ -47,7 +47,9 @@ RabbitMQ, and messaging in general, uses some jargon.
 Note that the producer, consumer, and  broker do not have to reside on
 the same machine; indeed in most applications they don't.
 
-## "Hello World" 
+
+## "Hello World"
+
 ### (using the cl-bunny Common Lisp Client) 
 
 In this part of the tutorial we'll write two small programs in Lisp; a
@@ -66,7 +68,7 @@ on behalf of the consumer.
 > RabbitMQ speaks AMQP 0.9.1, which is an open,
 > general-purpose protocol for messaging. There are a number of clients
 > for RabbitMQ in [many different
-> languages](/devtools.html). We'll
+> languages](http://www.rabbitmq.com/devtools.html). We'll
 > use the cl-bunny client in this tutorial.
 >
 > First, install cl-bunny using [official webpage](http://cl-rabbit.io/cl-bunny)
@@ -117,11 +119,11 @@ things done resides:
 To send, we must declare a queue for us to send to; then we can publish a message
 to the queue:
 
-  	(with-connection ("amqp://")
-  	  (with-channel ()
-  	    (let ((x (default-exchange)))
-  	      (publish x "Hello world!" :routing-key "hello")          
-  	      (format t " [x] Sent 'Hello World!'~%"))))
+    (with-connection ("amqp://")
+      (with-channel ()
+        (let ((x (default-exchange)))
+          (publish x "Hello world!" :routing-key "hello")          
+          (format t " [x] Sent 'Hello World!'~%"))))
 
 Declaring a queue is idempotent - it will only be created if it doesn't
 exist already. The message content is a byte array, so you can encode
@@ -177,15 +179,15 @@ queue. Since it will push us messages asynchronously, we provide a
 callback that will be executed when RabbitMQ pushes messages to
 our consumer. This is what `subscribe` does.
 
-  	(with-connection ("amqp://")
-  	  (with-channel ()
-  	    (let ((q (queue.declare "hello" :auto-delete t)))
-  	      (format t " [*] Waiting for messages in queue 'hello'. To exit type (exit)~%")
-  	      (subscribe q (lambda (message)
-  	                     (let ((body (babel:octets-to-string (message-body message))))
-  	                       (format t " [x] Received ~a~%" body)))
-  	                 :type :sync)
-  	      (consume :one-shot t))))
+    (with-connection ("amqp://")
+      (with-channel ()
+        (let ((q (queue.declare "hello" :auto-delete t)))
+          (format t " [*] Waiting for messages in queue 'hello'. To exit type (exit)~%")
+          (subscribe q (lambda (message)
+                         (let ((body (babel:octets-to-string (message-body message))))
+                           (format t " [x] Received ~a~%" body)))
+                     :type :sync)
+          (consume :one-shot t))))
 
 `subscribe` is used with the `:type :sync` option that makes it
 block the calling thread (we don't want the script to finish running immediately!).
@@ -210,4 +212,4 @@ If you want to check on the queue, try using `rabbitmqctl list_queues`.
 
 Hello World!
 
-Time to move on to [part 2](tutorial-two-cl.md) and build a simple _work queue_.
+Time to move on to [part 2](tutorial-two-cl.html) and build a simple _work queue_.
