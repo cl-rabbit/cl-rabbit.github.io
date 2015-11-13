@@ -1,9 +1,9 @@
 <!--
-Copyright (C) 2007-2015 Pivotal Software, Inc. 
+Copyright (C) 2007-2015 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -163,7 +163,7 @@ We declare our fibonacci function. It assumes only valid positive integer input.
 and it's probably the slowest recursive implementation possible).
 
 
-The code for our RPC server [rpc_server.lisp](code/rpc_server.lisp) looks like this:
+The code for our RPC server [rpc-server.lisp](https://github.com/cl-rabbit/cl-bunny/tree/master/examples/tutorials/rpc-server.lisp) looks like this:
 
 	(with-connection ("amqp://")
 	  (with-channel ()
@@ -194,7 +194,7 @@ The server code is rather straightforward:
     we wait for request messages, do the work and send the response back.
 
 
-The code for our RPC client [rpc_client.lisp](code/rpc_client.lisp):
+The code for our RPC client [rpc-client.lisp](https://github.com/cl-rabbit/cl-bunny/tree/master/examples/tutorials/rpc-client.lisp):
 
 	(defun start-client (n)
 	  (with-connection ("amqp://")
@@ -228,12 +228,12 @@ Now is a good time to take a look at our full example source code (which include
 
 Our RPC service is now ready. We can start the server:
 
-    $ sbcl --non-interactive --load rpc_server.lisp
+    $ sbcl --non-interactive --load rpc-server.lisp
      [x] Awaiting RPC requests
 
 To request a fibonacci number run the client:
 
-    $ sbcl --non-interactive --load rpc_client.lisp
+    $ sbcl --non-interactive --load rpc-client.lisp
 	 [x] Requesting fib(0)
 	 [.] Got 1
 	 [x] Requesting fib(1)

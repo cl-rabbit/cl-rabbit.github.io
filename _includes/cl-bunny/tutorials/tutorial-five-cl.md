@@ -1,9 +1,9 @@
 <!--
-Copyright (C) 2007-2015 Pivotal Software, Inc. 
+Copyright (C) 2007-2015 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -118,7 +118,7 @@ have two words: "`<facility>.<severity>`".
 The code is almost the same as in the
 [previous tutorial](tutorial-four-cl.html).
 
-The code for `emit_log_topic.lisp`:
+The code for [emit-logs-topic.lisp](https://github.com/cl-rabbit/cl-bunny/tree/master/examples/tutorials/emit-logs-topic.lisp):
 
     (with-connection ("amqp://")
       (with-channel ()
@@ -133,7 +133,7 @@ The code for `emit_log_topic.lisp`:
 
 
 
-The code for `receive_logs_topic.lisp`:
+The code for [receive-logs-topic.lisp](https://github.com/cl-rabbit/cl-bunny/tree/master/examples/tutorials/receive-logs-topic.lisp):
 
     (let ((args (cdr sb-ext:*posix-argv*)))
       (if args
@@ -154,30 +154,27 @@ The code for `receive_logs_topic.lisp`:
 
 To receive all the logs:
 
-    $ sbcl --load receive_logs_topic.lisp "#"
+    $ sbcl --load receive-logs-topic.lisp "#"
 
 To receive all logs from the facility "`kern`":
 
-    $ sbcl --load receive_logs_topic.lisp "kern.*"
+    $ sbcl --load receive-logs-topic.lisp "kern.*"
 
 Or if you want to hear only about "`critical`" logs:
 
-    $ sbcl --load receive_logs_topic.lisp "*.critical"
+    $ sbcl --load receive-logs-topic.lisp "*.critical"
 
 You can create multiple bindings:
 
-    $ sbcl --load receive_logs_topic.lisp "kern.*" "*.critical"
+    $ sbcl --load receive-logs-topic.lisp "kern.*" "*.critical"
 
 And to emit a log with a routing key "`kern.critical`" type:
 
-    $ sbcl --load emit_log_topic.lisp "kern.critical" "A critical kernel error"
+    $ sbcl --load emit-log-topic.lisp "kern.critical" "A critical kernel error"
 
 
 Have fun playing with these programs. Note that the code doesn't make
 any assumption about the routing or binding keys, you may want to play
 with more than two routing key parameters.
-
-(Full source code for [emit_log_topic.lisp](code/emit_log_topic.lisp)
-and [receive_logs_topic.lisp](code/receive_logs_topic.lisp))
 
 Next, find out how to do a round trip message as a remote procedure call in [tutorial 6](tutorial-six-cl.html)

@@ -1,9 +1,9 @@
 <!--
-Copyright (C) 2007-2015 Pivotal Software, Inc. 
+Copyright (C) 2007-2015 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -28,7 +28,7 @@ RabbitMQ, and messaging in general, uses some jargon.
 
  * _Producing_ means nothing more than sending. A program that sends messages
    is a _producer_. We'll draw it like that, with "P":  
-   ![P](http://i.imgur.com/mPTaxSl.png) 
+   ![P](http://i.imgur.com/mPTaxSl.png)
 
  * _A queue_ is the name for a mailbox. It lives inside
    RabbitMQ. Although messages flow through RabbitMQ and your
@@ -42,7 +42,7 @@ RabbitMQ, and messaging in general, uses some jargon.
 
  * _Consuming_ has a similar meaning to receiving. A _consumer_ is a program
    that mostly waits to receive messages. On our drawings it's shown with "C":  
-   ![C](http://i.imgur.com/U9mJa0I.png) 
+   ![C](http://i.imgur.com/U9mJa0I.png)
 
 Note that the producer, consumer, and  broker do not have to reside on
 the same machine; indeed in most applications they don't.
@@ -50,7 +50,7 @@ the same machine; indeed in most applications they don't.
 
 ## "Hello World"
 
-### (using the cl-bunny Common Lisp Client) 
+### (using the cl-bunny Common Lisp Client)
 
 In this part of the tutorial we'll write two small programs in Lisp; a
 producer that sends a single message, and a consumer that receives
@@ -86,7 +86,7 @@ We'll call our message sender `send.lisp` and our message receiver
 then exit.
 
 In
-[`send.lisp`](code/send.lisp),
+[send.lisp](https://github.com/cl-rabbit/cl-bunny/tree/master/examples/tutorials/send.lisp),
 we need to require the library first:
 
     (ql:quickload 'cl-bunny)
@@ -133,7 +133,7 @@ Lastly, we close the connection;
 
 Thanks to `with-connection` we don't have to close connection. It does this automatically
 
-[Here's the whole send.lisp script](code/send.lisp).
+[Here's the whole send.lisp script](https://github.com/cl-rabbit/cl-bunny/tree/master/examples/tutorials/send.lisp).
 
 > #### Sending doesn't work!
 >
@@ -154,7 +154,7 @@ RabbitMQ, so unlike the sender which publishes a single message, we'll
 keep it running to listen for messages and print them out.  
 ![[|||] -> (C)](http://i.imgur.com/3teOytn.png)
 
-The code (in [`receive.lisp`](code/receive.lisp)) has the same require as `send.lisp`:
+The code (in [receive.lisp](https://github.com/cl-rabbit/cl-bunny/tree/master/examples/tutorials/receive.lisp)) has the same require as `send.lisp`:
 
     (ql:quickload 'cl-bunny)
 
@@ -192,7 +192,7 @@ our consumer. This is what `subscribe` does.
 `subscribe` is used with the `:type :sync` option that makes it
 block the calling thread (we don't want the script to finish running immediately!).
 
-[Here's the whole receive.lisp script](code/receive.lisp).
+[Here's the whole receive.lisp script](https://github.com/cl-rabbit/cl-bunny/tree/master/examples/tutorials/receive.lisp).
 
 ### Putting it all together
 

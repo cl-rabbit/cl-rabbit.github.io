@@ -1,9 +1,9 @@
 <!--
-Copyright (C) 2007-2015 Pivotal Software, Inc. 
+Copyright (C) 2007-2015 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -193,7 +193,7 @@ value is ignored for `fanout` exchanges. Here goes the code for
 	      (sleep 1))))
 
 
-[(emit_log.lisp source)](code/emit_logs.lisp)
+[emit-logs.lisp source](https://github.com/cl-rabbit/cl-bunny/tree/master/examples/tutorials/emit-logs.lisp)
 
 As you see, after establishing the connection we declared the
 exchange. This step is neccesary as publishing to a non-existing
@@ -202,7 +202,7 @@ exchange is forbidden.
 The messages will be lost if no queue is bound to the exchange yet,
 but that's okay for us; if no consumer is listening yet we can safely discard the message.
 
-The code for `receive_logs.lisp`:
+The code for [receive-logs.lisp](https://github.com/cl-rabbit/cl-bunny/tree/master/examples/tutorials/receive-logs.lisp):
 
 	(with-connection ("amqp://")
 	  (with-channel ()
@@ -217,20 +217,20 @@ The code for `receive_logs.lisp`:
 	                 :type :sync)
 	      (consume))))
 
-[(receive_logs.lisp source)](code/receive_logs.lisp)
+[receive-logs.lisp source](https://github.com/cl-rabbit/cl-bunny/tree/master/examples/tutorials/receive-logs.lisp)
 
 
 If you want to save logs to a file, just open a console and type:
 
-    $ sbcl --non-interactive --load receive_logs.lisp > logs_from_rabbit.log
+    $ sbcl --non-interactive --load receive-logs.lisp > logs_from_rabbit.log
 
 If you wish to see the logs on your screen, spawn a new terminal and run:
 
-    $ sbcl --non-interactive --load receive_logs.lisp
+    $ sbcl --non-interactive --load receive-logs.lisp
 
 And of course, to emit logs type:
 
-    $ sbcl --non-interactive --load emit_log.lisp
+    $ sbcl --non-interactive --load emit-logs.lisp
 
 
 Using `rabbitmqctl list_bindings` you can verify that the code actually

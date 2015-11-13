@@ -1,9 +1,9 @@
 <!--
-Copyright (C) 2007-2015 Pivotal Software, Inc. 
+Copyright (C) 2007-2015 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -78,11 +78,11 @@ messages from the queue and perform the task, so let's call it `worker.lisp`:
                            (format t " [x] Received ~a~%" body)
                            ;; imitate some work
                            (sleep (count #\. body))
-                           (print " [x] Done~%"))) 
+                           (print " [x] Done~%")))
                      :type :sync)
           (consume :one-shot t))))
 
-    
+
 
 Note that our fake task simulates execution time.
 
@@ -170,7 +170,7 @@ Message acknowledgments are turned off by default.
 It's time to turn them on using the `:manual_ack` option and send a proper acknowledgment
 from the worker, once we're done with a task.
 
-    (subscribe q (lambda (message) 
+    (subscribe q (lambda (message)
       (let ((body (babel:octets-to-string (message-body message))))
         (format t " [x] Received ~a" body)
         ;; imitate some work
@@ -294,7 +294,7 @@ Final code of our `new_task.lisp` class:
           (sleep 1))))
 
 
-[(new_task.lisp source)](code/new_task.lisp)
+[new-task.lisp source](https://github.com/cl-rabbit/cl-bunny/tree/master/examples/tutorials/new-task.lisp)
 
 And our `worker.lisp`:
 
@@ -314,9 +314,9 @@ And our `worker.lisp`:
                      :no-ack t
                      :type :sync)
           (consume :one-shot t))))
-            
 
-[(worker.lisp source)](code/worker.lisp)
+
+[worker.lisp source](https://github.com/cl-rabbit/cl-bunny/tree/master/examples/tutorials/worker.lisp)
 
 Using message acknowledgments and `channel-prefetch` you can set up a
 work queue. The durability options let the tasks survive even if

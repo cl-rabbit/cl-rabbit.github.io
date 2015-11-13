@@ -1,9 +1,9 @@
 <!--
-Copyright (C) 2007-2015 Pivotal Software, Inc. 
+Copyright (C) 2007-2015 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -128,7 +128,7 @@ we're interested in.
     (let ((q (queue.declare "" :auto-delete t)))
         (loop for severity in (cdr sb-ext:*posix-argv*) do
             (amqp-queue-bind q :exchange "logs" :routing-key severity)))
-        
+
 Putting it all together
 -----------------------
 
@@ -136,7 +136,7 @@ Putting it all together
 ![](http://i.imgur.com/WiZ2UuV.png)
 
 
-The code for `emit_log_direct.lisp` script:
+The code for [emit-logs-direct.lisp](https://github.com/cl-rabbit/cl-bunny/tree/master/examples/tutorials/emit-logs-direct.lisp) script:
 
 	(with-connection ("amqp://")
 	  (with-channel ()
@@ -150,7 +150,7 @@ The code for `emit_log_direct.lisp` script:
 
 
 
-The code for `receive_logs_direct.lisp`:
+The code for [receive-logs-direct.lisp](https://github.com/cl-rabbit/cl-bunny/tree/master/examples/tutorials/receive-logs-direct.lisp):
 
 	(let ((args (cdr sb-ext:*posix-argv*)))
 	  (if args
@@ -172,22 +172,18 @@ The code for `receive_logs_direct.lisp`:
 If you want to save only 'warning' and 'error' (and not 'info') log
 messages to a file, just open a console and type:
 
-    $ sbcl --non-interactive --load receive_logs_direct.lisp warning error > logs_from_rabbit.log
+    $ sbcl --non-interactive --load receive-logs-direct.lisp warning error > logs_from_rabbit.log
 
 If you'd like to see all the log messages on your screen, open a new
 terminal and do:
 
-    $ sbcl --non-interactive --load receive_logs_direct.lisp info warning error
+    $ sbcl --non-interactive --load receive-logs-direct.lisp info warning error
      [*] Waiting for logs. To exit press CTRL+C
 
 And, for example, to emit an `error` log message just type:
 
-    $ sbcl --non-interactive --load emit_log_direct.lisp error "Run. Run. Or it will explode."
+    $ sbcl --non-interactive --load emit-logs-direct.lisp error "Run. Run. Or it will explode."
      [x] Sent 'error':'Run. Run. Or it will explode.'
-
-
-(Full source code for [(emit_log_direct.lisp source)](code/emit_log_direct.lisp)
-and [(receive_logs_direct.lisp source)](code/receive_logs_direct.lisp))
 
 Move on to [tutorial 5](tutorial-five-cl.html) to find out how to listen
 for messages based on a pattern.
