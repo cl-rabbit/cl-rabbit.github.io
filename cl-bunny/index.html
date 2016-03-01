@@ -13,9 +13,18 @@ layout: default
 			<a href="/cl-bunny/tutorials" class="btn large">Tutorials</a>
 			<a href="https://github.com/cl-rabbit/cl-bunny" class="btn large">Github</a>
 
-			<!--<p>
-				Morbi dignissim elit sagittis, tempor neque vitae, fringilla lacus. Nam sit amet condimentum nunc. Proin mauris nulla, gravida ac libero vitae, dapibus luctus libero. Duis iaculis ornare erat mattis lacinia. Donec id nisi et orci suscipit pellentesque et eu erat. Sed ullamcorper mauris et risus ultrices tincidunt. Nam efficitur mauris id ultrices sodales.
-			</p>-->
+      {% highlight lisp %}
+(with-connection ()
+  (with-channel ()
+    (let ((x (exchange.default)))
+      (->
+        (queue.declare :name "cl-bunny.examples.hello-world" :auto-delete t)
+        (subscribe (lambda (message)
+                     (log:info "Received ~a"
+                               (message-body-string message)))))
+      (publish x "Hello world!" :routing-key "cl-bunny.examples.hello-world"))
+    (sleep 1)))
+			{% endhighlight %}
 		</div>
 	</div>
 </section>
