@@ -635,8 +635,16 @@ article {
     color: black; }
 
 h1.button-inside {
-  line-height: 63px; }
+  line-height: 1.4em;
+  padding-right: 210px;
+  position: relative;
+  padding: 7px 210px 0 0;
+  margin-bottom: 40px; }
 
 h1.button-inside .btn {
-  float: right;
-  margin-right: 0; }
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-right: 0 !important; }
+
+/*# sourceMappingURL=style.css.map */
