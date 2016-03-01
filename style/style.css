@@ -634,4 +634,9 @@ article {
     border-color: #fff;
     color: black; }
 
-/*# sourceMappingURL=style.css.map */
+h1.button-inside {
+  line-height: 63px; }
+
+h1.button-inside .btn {
+  float: right;
+  margin-right: 0 !important; }
